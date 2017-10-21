@@ -2,9 +2,9 @@
 
 namespace AirCompany
 {
-    class Airplane
+     abstract class  Airplane
     {
-        public int Capacity { get; private set; }
+        public int Capacity { get; protected set; }
         public bool AutoPilotOn { get; set; }
         public void airplaneTeroristWin()
         {
@@ -17,16 +17,16 @@ namespace AirCompany
         /// <summary>
         /// Fuel consuption. kg/km
         /// </summary>
-        public float Consuption { get; private set; }
+        public float Consuption { get; protected set; }
 
-        public int Altitude { get; private set; }
+        public int Altitude { get; protected set; }
 
 
         public static decimal TicketPrice { get; set; }
         public static int MinAltitudeAuto { get; set; }
         public static int MaxAltitudeAuto { get; set; }
 
-        private int _altitudeIncrement;
+        protected int _altitudeIncrement;
         public bool Forsage = false;//форсаж выключен
         public Airplane(int capacity, float consuption, int altitudeIncrement)
         {
@@ -36,7 +36,7 @@ namespace AirCompany
             Consuption = consuption;
             _altitudeIncrement = altitudeIncrement;
         }
-        public void logick()
+         public void logick()
         {
             string menu;
             bool Q = false;
@@ -92,7 +92,7 @@ namespace AirCompany
                 }
             }
         }
-        public int Climb(int increment)
+        protected virtual int Climb(int increment)
         {
             if (Forsage == true) increment *= 2;
             if (Forsage == false) increment = 1;
@@ -106,7 +106,7 @@ namespace AirCompany
             return Altitude = MaxAltitudeAuto;
         }
 
-        public int Down(int increment)
+        protected virtual int Down(int increment)
         {
             if (AutoPilotOn)
             {
@@ -122,7 +122,7 @@ namespace AirCompany
             return Altitude -= increment;
         }
 
-        public void SetAltitude(int targetAlitude)
+        protected void SetAltitude(int targetAlitude)
         {
             if (targetAlitude > Altitude && AutoPilotOn == false)
             {
